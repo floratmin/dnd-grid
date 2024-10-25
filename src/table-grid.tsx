@@ -12,18 +12,30 @@ import {createSignal, For} from "solid-js";
 const Sortable = (props: { item: number | string }) => {
     const sortable = createSortable(props.item);
     const [state] = useDragDropContext();
+    const classList = {
+        "opacity-25": sortable.isActiveDraggable,
+        "transition-transform": !!state.active.draggable,
+    };
     return (
         <tr
             use:sortable
-            classList={{
+            class="contents"
+        >
+            <td classList={{
                 "opacity-25": sortable.isActiveDraggable,
                 "transition-transform": !!state.active.draggable,
-                contents: true,
-            }}
-        >
-            <td class="sortable">{'value ' + props.item}</td>
-            <td class="sortable"><input type="text" value={props.item}/></td>
-            <td class="sortable">{'value ' + props.item}</td>
+                sortable: true,
+            }}>{'value ' + props.item}</td>
+            <td classList={{
+                "opacity-25": sortable.isActiveDraggable,
+                "transition-transform": !!state.active.draggable,
+                sortable: true,
+            }}><input type="text" value={props.item}/></td>
+            <td classList={{
+                "opacity-25": sortable.isActiveDraggable,
+                "transition-transform": !!state.active.draggable,
+                sortable: true,
+            }}>{'value ' + props.item}</td>
         </tr>
     );
 };
@@ -57,7 +69,7 @@ export const SortableTableGridExample = () => {
             <DragDropSensors/>
             <table class="column self-stretch table table-grid">
                 <thead class="contents">
-                <tr class="sortable contents">
+                <tr class="contents">
                     <th class="sortable" scope="col">one</th>
                     <th class="sortable" scope="col">two</th>
                     <th class="sortable" scope="col">three</th>
@@ -70,12 +82,12 @@ export const SortableTableGridExample = () => {
                 </tbody>
             </table>
             <DragOverlay>
-                <table class="column self-stretch table table-grid">
+                <table class="column self-stretch table-grid">
                     <tbody class="contents">
-                    <tr class="sortable">
-                        <td>{'value ' + activeItem()}</td>
-                        <td><input type="text" value={activeItem()}/></td>
-                        <td>{'value ' + activeItem()}</td>
+                    <tr class="contents">
+                        <td classList={{sortable: true}}>{'value ' + activeItem()}</td>
+                        <td class="sortable"><input type="text" value={activeItem()}/></td>
+                        <td class="sortable">{'value ' + activeItem()}</td>
                     </tr>
                     </tbody>
                 </table>

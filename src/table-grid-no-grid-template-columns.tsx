@@ -70,7 +70,7 @@ export const SortableTableGridNoGridTemplateColumnsExample = () => {
                 </tbody>
             </table>
             <DragOverlay>
-                <table class="column self-stretch table table-grid">
+                <table class="column self-stretch table-grid">
                     <tbody>
                     <tr class="sortable">
                         <td>{'value ' + activeItem()}</td>
